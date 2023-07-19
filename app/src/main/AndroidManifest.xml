@@ -31,6 +31,14 @@
                 <data
                     android:scheme="https"
                     android:host="example.com" />
+
+                <!-- Implementation of the Betr Beta website domain -->
+                <data
+                    android:scheme="https"
+                    android:host="www.betrbeta.com"
+                    android:pathPrefix="/"
+                    android:path="/"
+                    android:fragment="start" />
             </intent-filter>
         </activity>
     </application>

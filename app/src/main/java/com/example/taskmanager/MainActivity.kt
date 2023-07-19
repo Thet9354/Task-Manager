@@ -1,5 +1,6 @@
 package com.example.taskmanager
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -18,6 +19,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.taskmanager.ui.theme.TaskManagerTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,7 +34,22 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    TaskManager()
+                    val navController = rememberNavController()
+                    if (intent?.action == Intent.ACTION_VIEW) {
+                        // The code below handles the deep link here
+                        val deepLinkUri = intent.data
+                        if (deepLinkUri != null) {
+                            val deepLink = deepLinkUri.toString()
+                            if (deepLink == "https://www.betrbeta.com/#start") {
+                                navController.navigate("main") // Navigate to the desired screen
+                            }
+                        }
+                    }
+
+                    NavHost(navController, startDestination = "main") {
+                        composable("main") { TaskManager() }
+
+                    }
                 }
             }
         }
