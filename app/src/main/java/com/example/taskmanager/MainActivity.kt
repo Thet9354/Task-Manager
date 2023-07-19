@@ -2,6 +2,7 @@ package com.example.taskmanager
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -10,6 +11,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -22,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.airbnb.lottie.compose.*
 import com.example.taskmanager.ui.theme.TaskManagerTheme
 
 class MainActivity : ComponentActivity() {
@@ -72,12 +75,22 @@ fun TaskManager(modifier: Modifier = Modifier) {
 
 @Composable
 fun TaskManagerImage() {
-    val image = painterResource(id = R.drawable.ic_task_completed)
-    Image(
-        painter = image,
-        contentDescription = "Tick Image",
-        modifier = Modifier.testTag("Tick")
-    )
+
+    Log.d("MyTag", "Before running updated lottie animation code")
+
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.animation_lk9ocvu0))
+    val progress by animateLottieCompositionAsState(composition)
+
+    LottieAnimation(composition = composition, progress = { progress })
+
+    Log.d("MyTag", "Before running updated lottie animation code")
+
+//    val image = painterResource(id = R.drawable.ic_task_completed)
+//    Image(
+//        painter = image,
+//        contentDescription = "Tick Image",
+//        modifier = Modifier.testTag("Tick")
+//    )
 }
 
 @Composable
